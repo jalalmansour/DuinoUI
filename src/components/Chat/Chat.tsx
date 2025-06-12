@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Chat.module.css";
 import Source from "../Source/Source";
 import Answer from "../Answer/Answer";
@@ -283,13 +283,18 @@ const Chat = (props: Props) => {
 
     processChatThread();
   }, [
-    chatThread?.chats.length,
-    chatThread?.chats[chatThread?.chats.length - 1]?.mode,
-    chatThread?.chats[chatThread?.chats.length - 1]?.searchResults,
-    chatThread?.chats[chatThread?.chats.length - 1]?.answer,
+    chatThread, // Added chatThread
+    id, // Added id
+    dispatch, // Added dispatch
+    handleAnswer, // Added handleAnswer
+    handleWeather, // Added handleWeather (will be memoized)
+    handleStock, // Added handleStock (will be memoized)
+    handleDictionary, // Added handleDictionary (will be memoized)
+    handleSearch, // Added handleSearch (will be memoized)
+    // Previous complex dependencies will be simplified by extracting lastChat properties
   ]);
 
-  const handleSearch = async (chatIndex: number) => {
+  const handleSearch = useCallback(async (chatIndex: number) => {
     const chat = chatThread?.chats[chatIndex];
     setIsLoading(true);
     setIsCompleted(false);
@@ -344,11 +349,11 @@ const Chat = (props: Props) => {
     } catch (error) {
       console.error("Error fetching or processing search results:", error);
       setError("Error fetching or processing search results");
-      setErrorFunction(() => handleSearch.bind(null, chatIndex));
+      setErrorFunction(() => () => handleSearch(chatIndex)); // Updated for useCallback
     }
-  };
+  }, [chatThread, dispatch, id, handleAnswer, setIsLoading, setIsCompleted, setError, setErrorFunction]);
 
-  const handleWeather = async (location: string, chatIndex: number) => {
+  const handleWeather = useCallback(async (location: string, chatIndex: number) => {
     const chat = chatThread?.chats[chatIndex];
     setIsLoading(true);
     setIsCompleted(false);
@@ -381,11 +386,11 @@ const Chat = (props: Props) => {
     } catch (error) {
       console.error("Error fetching or processing weather data:", error);
       setError("Error fetching or processing weather data");
-      setErrorFunction(() => handleWeather.bind(null, location, chatIndex));
+      setErrorFunction(() => () => handleWeather(location, chatIndex)); // Updated for useCallback
     }
-  };
+  }, [chatThread, dispatch, id, handleAnswer, setIsLoading, setIsCompleted, setError, setErrorFunction]);
 
-  const handleStock = async (stock: string, chatIndex: number) => {
+  const handleStock = useCallback(async (stock: string, chatIndex: number) => {
     const chat = chatThread?.chats[chatIndex];
     setIsLoading(true);
     setIsCompleted(false);
@@ -418,11 +423,11 @@ const Chat = (props: Props) => {
     } catch (error) {
       console.error("Error fetching or processing stock data:", error);
       setError("Error fetching or processing stock data");
-      setErrorFunction(() => handleStock.bind(null, stock, chatIndex));
+      setErrorFunction(() => () => handleStock(stock, chatIndex)); // Updated for useCallback
     }
-  };
+  }, [chatThread, dispatch, id, handleAnswer, setIsLoading, setIsCompleted, setError, setErrorFunction]);
 
-  const handleDictionary = async (word: string, chatIndex: number) => {
+  const handleDictionary = useCallback(async (word: string, chatIndex: number) => {
     const chat = chatThread?.chats[chatIndex];
     setIsLoading(true);
     setIsCompleted(false);
@@ -455,9 +460,9 @@ const Chat = (props: Props) => {
     } catch (error) {
       console.error("Error fetching or processing dictionary data:", error);
       setError("Error fetching or processing dictionary data");
-      setErrorFunction(() => handleDictionary.bind(null, word, chatIndex));
+      setErrorFunction(() => () => handleDictionary(word, chatIndex)); // Updated for useCallback
     }
-  };
+  }, [chatThread, dispatch, id, handleAnswer, setIsLoading, setIsCompleted, setError, setErrorFunction]);
 
   const handleSend = (text: string) => {
     if (text.trim() !== "") {

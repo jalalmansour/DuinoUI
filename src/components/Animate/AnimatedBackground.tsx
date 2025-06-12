@@ -4,11 +4,13 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
- faSchool,faPencilAlt,faUniversity,   faAppleAlt,   faBookReader,   faClipboard,  faBrain,   faFlask,   faLightbulb,   faRuler,   faRulerCombined,   faPencilRuler,   faMicroscope,   faGlobe,   faFileAlt,   faFileCode ,  faAtom,faChalkboardTeacher,faGraduationCap,faLaptop,  faBook,faChalkboard, faCalculator, faUserGraduate, faTheaterMasks, faPalette, 
+  faPython, faJava, faJs, faHtml5, faCss3Alt, faPhp, faRuby
+} from '@fortawesome/free-brands-svg-icons';
+import {
+ faSchool,faPencil,faUniversity,   faAppleAlt,   faBookReader,   faClipboard,  faBrain,   faFlask,   faLightbulb,   faRuler,   faRulerCombined,   faPencilRuler,   faMicroscope,   faGlobe,   faFileLines,   faFileCode ,  faAtom,faChalkboardTeacher,faGraduationCap,faLaptop,  faBook,faChalkboard, faCalculator, faUserGraduate, faTheaterMasks, faPalette,
   faMusic, faArchive, faCertificate, faBookOpen, faDraftingCompass, 
   faChalkboardUser, faKeyboard, faInfinity, faProjectDiagram, faHourglassHalf,
-  faFile, faFilePdf, faFileWord, faFilePowerpoint, faCode, faPython, faJava,
-  faJavascript, faHtml5, faCss3, faC, faCpp, faPhp, faRuby, faDatabase, faServer,
+  faFile, faFilePdf, faFileWord, faFilePowerpoint, faCode, faC, faCpp, faDatabase, faServer,
   faNetworkWired, faCloud, faCloudDownload, faCloudUpload, faFileExcel, faFileImage, 
   faFileArchive, faFileAudio, faFileVideo, faFileMedical, faFileInvoice, faFileSignature,
   faFileInvoiceDollar, faFileSpreadsheet, faFileCsv, faFileMarkdown, faFileDownload, faFileUpload,
@@ -33,7 +35,7 @@ const icons = [
   { type: 'img', src: "/images/EST2.ico", alt: "EST2 logo", tooltip: "EST: Technology and Innovation" },
   { type: 'fa', icon: faLaptop, tooltip: "Technology: Powering the digital age." },
   { type: 'fa', icon: faSchool, tooltip: "School: Where learning begins." },
-  { type: 'fa', icon: faPencilAlt, tooltip: "Writing: Expressing ideas and creativity." },
+  { type: 'fa', icon: faPencil, tooltip: "Writing: Expressing ideas and creativity." },
   { type: 'fa', icon: faUniversity, tooltip: "University: Higher learning and research." },
   { type: 'fa', icon: faAppleAlt, tooltip: "Apple: A symbol of innovation and technology." },
   { type: 'fa', icon: faBookReader, tooltip: "Reading: Engaging with knowledge and stories." },
@@ -62,7 +64,7 @@ const icons = [
   { type: 'fa', icon: faProjectDiagram, tooltip: "Planning:  Organizing and visualizing projects." },
   { type: 'fa', icon: faHourglassHalf, tooltip: "Time:  A valuable resource." },
   { type: 'fa', icon: faFile, tooltip: "General Document:  Files of various types." },
-  { type: 'fa', icon: faFileAlt, tooltip: "Alternative File:  Files with alternative formats." },
+  { type: 'fa', icon: faFileLines, tooltip: "Alternative File:  Files with alternative formats." },
   { type: 'fa', icon: faFileCode, tooltip: "Code File:  Source code files." },
   { type: 'fa', icon: faFilePdf, tooltip: "PDF Document:  Portable Document Format files." },
   { type: 'fa', icon: faFileWord, tooltip: "Word Document:  Microsoft Word files." },
@@ -70,9 +72,9 @@ const icons = [
   { type: 'fa', icon: faCode, tooltip: "Code:  Programming languages in general." },
   { type: 'fa', icon: faPython, tooltip: "Python:  A popular programming language." },
   { type: 'fa', icon: faJava, tooltip: "Java:  A robust programming language." },
-  { type: 'fa', icon: faJavascript, tooltip: "JavaScript:  A versatile scripting language." },
+  { type: 'fa', icon: faJs, tooltip: "JavaScript:  A versatile scripting language." },
   { type: 'fa', icon: faHtml5, tooltip: "HTML5:  The language of the web." },
-  { type: 'fa', icon: faCss3, tooltip: "CSS3:  Styling the web." },
+  { type: 'fa', icon: faCss3Alt, tooltip: "CSS3:  Styling the web." },
   { type: 'fa', icon: faC, tooltip: "C:  A powerful and efficient programming language." },
   { type: 'fa', icon: faCpp, tooltip: "C++:  An object-oriented programming language." },
   { type: 'fa', icon: faPhp, tooltip: "PHP:  A server-side scripting language." },
@@ -96,7 +98,7 @@ const icons = [
   { type: 'fa', icon: faFileSpreadsheet, tooltip: "Spreadsheet File:  Spreadsheets like CSV, XLSX." },
   { type: 'fa', icon: faFileCsv, tooltip: "CSV File:  Comma-separated values files." },
   { type: 'fa', icon: faFileMarkdown, tooltip: "Markdown File:  Text files formatted with markdown." },
-  { type: 'fa', icon: faFileAlt, tooltip: "Alternative File:  Files with alternative formats." },
+  { type: 'fa', icon: faFileLines, tooltip: "Alternative File:  Files with alternative formats." },
   { type: 'fa', icon: faFileDownload, tooltip: "File Download:  Downloading a file." },
   { type: 'fa', icon: faFileUpload, tooltip: "File Upload:  Uploading a file." },
   { type: 'fa', icon: faFileCirclePlus, tooltip: "Add File:  Adding a new file." },

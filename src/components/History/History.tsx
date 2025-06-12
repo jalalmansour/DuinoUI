@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./History.module.css";
 import Image from "next/image";
 import Auth from "../Auth/Auth";
@@ -43,11 +43,7 @@ const History = () => {
   const [deleting, setDeleting] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatThreadWithTimestamp[]>([]);
 
-  useEffect(() => {
-    fetchChatHistory();
-  }, [isAuthenticated, userDetails.uid]);
-
-  const fetchChatHistory = async () => {
+  const fetchChatHistory = useCallback(async () => {
     if (isAuthenticated && userDetails.uid) {
       setLoading(true);
       const historyRef = collection(db, "users", userDetails.uid, "history");
@@ -63,9 +59,17 @@ const History = () => {
       setChatHistory([]);
       setLoading(false);
     }
-  };
+  }, [isAuthenticated, userDetails.uid]); // setLoading and setChatHistory are stable
+
+  useEffect(() => {
+    fetchChatHistory();
+  }, [fetchChatHistory]);
+
+  // oldFetchChatHistory removed
 
   const handleDelete = async (threadId: string) => {
+    // This also uses fetchChatHistory. If handleDelete were a useEffect dependency,
+    // it would need useCallback too. For onClick, it's fine for now.
     if (isAuthenticated && userDetails.uid) {
       setDeleting(true);
       await deleteDoc(doc(db, "users", userDetails.uid, "history", threadId));

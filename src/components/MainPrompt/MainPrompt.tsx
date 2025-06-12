@@ -95,7 +95,7 @@ useEffect(() => {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [sloganText, sloganIndex]);
+  }, [sloganText, sloganIndex, cursor, slogans]);
 
   useEffect(() => {
     let backgroundStyle, logoSVGs;
@@ -320,7 +320,7 @@ return icons[extension] || 'https://img.icons8.com/?size=100&id=48690&format=png
       {background}
       <div className={styles.backgroundImagesContainer}></div>
 
-      <Image src={Logo} alt="Logo.svg" width={150} height={150} />
+      <Image src={Logo} alt="DuinoBot Logo" width={150} height={150} />
       <div className={styles.title} onClick={handleClick}>
         <span ref={textRef}>DuinoBot:</span>
         <span> </span>
@@ -334,7 +334,7 @@ return icons[extension] || 'https://img.icons8.com/?size=100&id=48690&format=png
       <div className={styles.focusButtonContainer}>
         {width <= 512 && (
           <div className={styles.button} onClick={() => setOpen(true)}>
-            <Image src={focus.icon} alt="Filter" width={24} height={24} />
+            <Image src={focus.icon} alt={`${focus.website} focus icon`} width={24} height={24} />
             <p className={styles.buttonText}>{focus.website}</p>
           </div>
         )}
@@ -349,7 +349,7 @@ return icons[extension] || 'https://img.icons8.com/?size=100&id=48690&format=png
           >
             <PopoverTrigger>
               <div className={styles.button}>
-                <Image src={focus.icon} alt="Filter" width={18} height={18} />
+                <Image src={focus.icon} alt={`${focus.website} focus icon`} width={18} height={18} />
                 <p className={styles.buttonText}>{focus.website}</p>
               </div>
             </PopoverTrigger>
@@ -414,7 +414,7 @@ return icons[extension] || 'https://img.icons8.com/?size=100&id=48690&format=png
                           <div className={styles.modalTitleContainer}>
                             <Image
                               src={option.icon}
-                              alt={option.website}
+                              alt={`${option.website} icon`}
                               width={24}
                               height={24}
                             />
@@ -425,7 +425,7 @@ return icons[extension] || 'https://img.icons8.com/?size=100&id=48690&format=png
                           {focus.website === option.website && (
                             <Image
                               src={Check}
-                              alt="Check"
+                              alt="Selected choice indicator"
                               width={30}
                               height={30}
                             />
@@ -459,7 +459,7 @@ return icons[extension] || 'https://img.icons8.com/?size=100&id=48690&format=png
 
         {/* Attach Button */}
         <label htmlFor="fileInput" className={styles.attachButton} style={{ fill: 'white' }}>
-        <Image src={UploadIcon} alt="Upload" width={30} height={30} />
+        <Image src={UploadIcon} alt="Upload file" width={30} height={30} />
           <input 
             type="file" 
             id="fileInput" 
@@ -470,22 +470,24 @@ return icons[extension] || 'https://img.icons8.com/?size=100&id=48690&format=png
 
         {/* Send Button */}
         <div className={styles.sendButton} onClick={handleSend}>
-          <Image src={Arrow} alt="Arrow" width={30} height={30} />
+          <Image src={Arrow} alt="Send message" width={30} height={30} />
         </div>
 
         {/* Thumbnail Preview */}
         {thumbnailURL && (
           <div className={styles.thumbnailPreview}>
             {selectedFile?.type.startsWith("image/") ? (
-              <img 
+              <Image
                 src={thumbnailURL} 
-                alt={selectedFile?.name} 
+                alt={selectedFile?.name || "Uploaded image thumbnail"}
+                width={48} /* Placeholder width */
+                height={48} /* Placeholder height */
                 className={styles.thumbnailImage} 
               />
             ) : (
               <Image 
                 src={thumbnailURL} 
-                alt={selectedFile?.name || "File Icon"} 
+                alt={selectedFile?.name || "File type icon"}
                 width={48} 
                 height={48} 
                 className={styles.thumbnailIcon} 

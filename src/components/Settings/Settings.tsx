@@ -69,7 +69,10 @@ const Settings = () => {
       aiCustomPrompt !== customPrompt.trim();
 
     setHasChanges(isChanged);
-  }, [model, temperature, maxLength, topP, frequency, presence, customPrompt]);
+  }, [
+    model, temperature, maxLength, topP, frequency, presence, customPrompt, // Local states
+    aiModel, aiTemperature, aiMaxLength, aiTopP, aiFrequency, aiPresence, aiCustomPrompt // Redux states
+  ]);
 
   useEffect(() => {
     setModelLocal(aiModel);

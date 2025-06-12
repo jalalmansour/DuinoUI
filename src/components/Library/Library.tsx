@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Library.module.css";
 import Image from "next/image";
 import Auth from "../Auth/Auth";
@@ -31,11 +31,7 @@ const Library = () => {
   const [deleting, setDeleting] = useState(false);
   const [libraryData, setLibraryData] = useState<LibraryItem[]>([]);
 
-  useEffect(() => {
-    fetchLibraryData();
-  }, [isAuthenticated, userDetails.uid]);
-
-  const fetchLibraryData = async () => {
+  const fetchLibraryData = useCallback(async () => {
     if (isAuthenticated && userDetails.uid) {
       setLoading(true);
       const libraryRef = collection(db, "users", userDetails.uid, "library");
@@ -51,9 +47,17 @@ const Library = () => {
       setLibraryData([]);
       setLoading(false);
     }
-  };
+  }, [isAuthenticated, userDetails.uid]); // setLoading and setLibraryData are stable
+
+  useEffect(() => {
+    fetchLibraryData();
+  }, [fetchLibraryData]);
+
+  // oldFetchLibraryData removed
 
   const handleDelete = async (itemId: string) => {
+    // This also uses fetchLibraryData. If handleDelete were a useEffect dependency,
+    // it would need useCallback too. For onClick, it's fine for now.
     if (isAuthenticated && userDetails.uid) {
       setDeleting(true);
       await deleteDoc(doc(db, "users", userDetails.uid, "library", itemId));

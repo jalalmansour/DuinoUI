@@ -64,18 +64,20 @@ const Widget = ({ searchResults }: searchProps) => {
               >
                 {images.map((image: any, index: number) => (
                   <SwiperSlide key={index}>
-                    <img
+                    <Image
                       src={image.thumbnailUrl}
-                      alt={`Image ${index + 1}`}
+                      alt={image.name || `Search result image ${index + 1}`}
+                      layout="fill"
+                      objectFit="cover"
                       onClick={() => openInNewWindow(image.hostPageUrl)}
                     />
                   </SwiperSlide>
                 ))}
                 <div className={styles.prevArrow}>
-                  <Image src={PrevArrow} alt="Previous" />
+                  <Image src={PrevArrow} alt="Previous image" width={24} height={24} />
                 </div>
                 <div className={styles.nextArrow}>
-                  <Image src={NextArrow} alt="Next" />
+                  <Image src={NextArrow} alt="Next image" width={24} height={24} />
                 </div>
               </Swiper>
             </div>
@@ -85,10 +87,10 @@ const Widget = ({ searchResults }: searchProps) => {
               onClick={() => handleMediaClick("picture")}
             >
               <div className={styles.cardTitle}>
-                <Image src={Picture} alt="Picture" className={styles.icon} />
+                <Image src={Picture} alt="Pictures icon" width={21} height={21} className={styles.icon} />
                 Search Images
               </div>
-              <Image src={Plus} alt="Plus" className={styles.plus} />
+              <Image src={Plus} alt="Show images" width={18} height={18} className={styles.plus} />
             </div>
           )}
         </>
@@ -121,22 +123,24 @@ const Widget = ({ searchResults }: searchProps) => {
                 {videos.map((video: any, index: number) => (
                   <SwiperSlide key={index}>
                     <div className={styles.videoSlide}>
-                      <img
+                      <Image
                         src={video.thumbnailUrl}
-                        alt={`Video ${index + 1}`}
+                        alt={video.name || `Search result video ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
                         onClick={() => openInNewWindow(video.hostPageUrl)}
                       />
                       <div className={styles.playIcon}>
-                        <Image src={PlayIcon} alt="Play" />
+                        <Image src={PlayIcon} alt="Play video" width={50} height={50} />
                       </div>
                     </div>
                   </SwiperSlide>
                 ))}
                 <div className={styles.prevArrow}>
-                  <Image src={PrevArrow} alt="Previous" />
+                  <Image src={PrevArrow} alt="Previous video" width={24} height={24} />
                 </div>
                 <div className={styles.nextArrow}>
-                  <Image src={NextArrow} alt="Next" />
+                  <Image src={NextArrow} alt="Next video" width={24} height={24} />
                 </div>
               </Swiper>
             </div>
@@ -146,10 +150,10 @@ const Widget = ({ searchResults }: searchProps) => {
               onClick={() => handleMediaClick("video")}
             >
               <div className={styles.cardTitle}>
-                <Image src={Video} alt="Video" className={styles.icon} />
+                <Image src={Video} alt="Videos icon" width={21} height={21} className={styles.icon} />
                 Search Videos
               </div>
-              <Image src={Plus} alt="Plus" className={styles.plus} />
+              <Image src={Plus} alt="Show videos" width={18} height={18} className={styles.plus} />
             </div>
           )}
         </>

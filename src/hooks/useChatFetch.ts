@@ -76,7 +76,7 @@ const useChatFetch = (id: string) => {
     };
 
     fetchData();
-  }, []);
+  }, [chatThread, fetchChatThread]); // Added chatThread and fetchChatThread
 
   return { chatThread, isFetching };
 };
